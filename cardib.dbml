@@ -1,0 +1,158 @@
+Project CardiB {
+  database_type: 'PostgreSQL'
+  Note: '''
+    # Country Analysis Relational DataBase (CARDB)
+    We collected data from two sources: 
+    
+    * Open data from the World Bank's [Sovereign Environmental, Social, and Governance (ESG) Data](https://datatopics.worldbank.org/esg/) project. The ESG data reports data from every country in the world over the time frame from 1960-2021 on a wide variety of topics including education, health, and economic factors within the countries. 
+    
+    * Data on the quality and democratic character of countries' governments as reported by the [Varieties of Democracy (V-Dem)](https://www.v-dem.net/data/the-v-dem-dataset/) project at the University of Notre Dame. 
+    
+    By using both data sources, we can conduct analyses to see whether democratic openness leads to better societal outcomes for countries. We can also write SQL queries to capture a wide range of information on countries' political parties, tax systems, and banking industries, for example. Or as Cardi B would say, "You in the club just to party, I'm there, I get paid a fee. I be in and out them banks so much, I know they're tired of me."
+  '''
+}
+Table country as C {
+    country_code varchar [pk]
+    country_name_wb varchar
+    country_longname varchar
+    currency_unit varchar
+    region varchar
+    income_group varchar
+}
+Table world as W {
+    year int [pk]
+    world_access_to_clean_fuels_and_technologies_for_cooking float
+    world_access_to_electricity float
+    world_agricultural_land float
+    world_agriculture float
+    world_annual_freshwater_withdrawals float
+    world_annualized_average_growth_rate_in_per_capita_real_survey_mean_consumption_or_income float
+    world_cause_of_death float
+    world_children_in_employment float
+    world_co2_emissions float
+    world_control_of_corruption float
+    world_droughts float
+    world_ease_of_doing_business_rank float
+    world_electricity_production_from_coal_sources float
+    world_energy_imports float
+    world_energy_intensity_level_of_primary_energy float
+    world_energy_use float
+    world_fertility_rate float
+    world_food_production_index float
+    world_forest_area float
+    world_fossil_fuel_energy_consumption float
+    world_gdp_growth float
+    world_ghg_net_emissions float
+    world_gini_index float
+    world_government_effectiveness float
+    world_government_expenditure_on_education float
+    world_gross_school_enrollment float
+    world_hospital_beds float
+    world_income_share_held_by_lowest_20pct float
+    world_individuals_using_the_internet float
+    world_labor_force_participation_rate float
+    world_life_expectancy_at_birth float
+    world_literacy_rate float
+    world_mammal_species float
+    world_methane_emissions float
+    world_mortality_rate float
+    world_natural_resources_depletion float
+    world_net_forest_depletion float
+    world_net_migration float
+    world_nitrous_oxide_emissions float
+    world_patent_applications float
+    world_people_using_safely_managed_drinking_water_services float
+    world_people_using_safely_managed_sanitation_services float
+    world_pm2_5_air_pollution float
+    world_political_stability_and_absence_of_violence float
+    world_population_ages_65_and_above float
+    world_population_density float
+    world_poverty_headcount_ratio_at_national_poverty_lines float
+    world_prevalence_of_overweight float
+    world_prevalence_of_undernourishment float
+    world_primary_school_enrollment float
+    world_proportion_of_seats_held_by_women_in_national_parliaments float
+    world_ratio_of_female_to_male_labor_force_participation_rate float
+    world_regulatory_quality float
+    world_renewable_electricity_output float
+    world_renewable_energy_consumption float
+    world_research_and_development_expenditure float
+    world_rule_of_law float
+    world_scientific_and_technical_journal_articles float
+    world_strength_of_legal_rights_index float
+    world_terrestrial_and_marine_protected_areas float
+    world_unemployment float
+    world_unmet_need_for_contraception float
+    world_voice_and_accountability float
+}
+Table timeseries as T {
+    country_code varchar [pk]
+    year int [pk]
+    access_to_clean_fuels_and_technologies_for_cooking float
+    access_to_electricity float
+    agricultural_land float
+    agriculture float
+    annual_freshwater_withdrawals float
+    annualized_average_growth_rate_in_per_capita_real_survey_mean_consumption_or_income float
+    cause_of_death float
+    children_in_employment float
+    co2_emissions float
+    control_of_corruption float
+    droughts float
+    ease_of_doing_business_rank float
+    electricity_production_from_coal_sources float
+    energy_imports float
+    energy_intensity_level_of_primary_energy float
+    energy_use float
+    fertility_rate float
+    food_production_index float
+    forest_area float
+    fossil_fuel_energy_consumption float
+    gdp_growth float
+    ghg_net_emissions float
+    gini_index float
+    government_effectiveness float
+    government_expenditure_on_education float
+    gross_school_enrollment float
+    hospital_beds float
+    income_share_held_by_lowest_20pct float
+    individuals_using_the_internet float
+    labor_force_participation_rate float
+    life_expectancy_at_birth float
+    literacy_rate float
+    mammal_species float
+    methane_emissions float
+    mortality_rate float
+    natural_resources_depletion float
+    net_forest_depletion float
+    net_migration float
+    nitrous_oxide_emissions float
+    patent_applications float
+    people_using_safely_managed_drinking_water_services float
+    people_using_safely_managed_sanitation_services float
+    pm2_5_air_pollution float
+    political_stability_and_absence_of_violence float
+    population_ages_65_and_above float
+    population_density float
+    poverty_headcount_ratio_at_national_poverty_lines float
+    prevalence_of_overweight float
+    prevalence_of_undernourishment float
+    primary_school_enrollment float
+    proportion_of_seats_held_by_women_in_national_parliaments float
+    ratio_of_female_to_male_labor_force_participation_rate float
+    regulatory_quality float
+    renewable_electricity_output float
+    renewable_energy_consumption float
+    research_and_development_expenditure float
+    rule_of_law float
+    scientific_and_technical_journal_articles float
+    strength_of_legal_rights_index float
+    terrestrial_and_marine_protected_areas float
+    unemployment float
+    unmet_need_for_contraception float
+    voice_and_accountability float
+    democracy float
+}
+
+Ref: T.country_code > C.country_code 
+Ref: T.year > W.year
